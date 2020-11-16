@@ -46,4 +46,15 @@ public class LinkTrackerServiceImpl implements LinkTrackerService {
         MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
         return redirectFactory.getRedirectDto(maskedLink.getRedirects().size());
     }
+
+    @Override
+    public boolean invalidLink(String url) {
+        MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
+        if(maskedLink != null){
+            maskedLink.setValid(false);
+            maskedLinkDao.save(maskedLink);
+            return true;
+        }
+        return false;
+    }
 }

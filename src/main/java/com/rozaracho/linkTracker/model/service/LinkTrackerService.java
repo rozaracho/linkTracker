@@ -11,4 +11,6 @@ public interface LinkTrackerService {
     boolean redirect(String url);
 
     RedirectDto numberOfRedirects(String url);
+
+    boolean invalidLink(String url);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/linkTracker")
 public class LinkTrackerController {
+
     @Autowired
     LinkTrackerService linkTrackerService;
 
@@ -32,5 +33,14 @@ public class LinkTrackerController {
     @GetMapping("/redirects")
     public ResponseEntity<RedirectDto> numberOfRedirects(@RequestParam String url) {
         return new ResponseEntity<>(linkTrackerService.numberOfRedirects(url), HttpStatus.OK);
+    }
+
+    @PutMapping("/invalidLink")
+    public ResponseEntity invalidLink(@RequestParam String url) {
+        if (linkTrackerService.invalidLink(url)) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 }
