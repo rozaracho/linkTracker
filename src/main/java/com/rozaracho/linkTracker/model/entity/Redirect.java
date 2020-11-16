@@ -9,9 +9,9 @@ public class Redirect{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String url;
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="masked_link_id")
     private MaskedLink maskedLink;
 
     public Integer getId() {
@@ -20,14 +20,6 @@ public class Redirect{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public MaskedLink getMaskedLink() {

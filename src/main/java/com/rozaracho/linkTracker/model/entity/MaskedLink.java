@@ -1,6 +1,7 @@
 package com.rozaracho.linkTracker.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,9 @@ public class MaskedLink {
     private String target;
     private String link;
     private Boolean valid;
-    @OneToMany(mappedBy = "maskedLink")
-    private List<Redirect> redirects;
+
+    @OneToMany(mappedBy = "maskedLink", cascade = CascadeType.ALL)
+    private List<Redirect> redirects= new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -54,5 +56,9 @@ public class MaskedLink {
 
     public void setRedirects(List<Redirect> redirects) {
         this.redirects = redirects;
+    }
+
+    public void addRedirect(Redirect redirect){
+        this.redirects.add(redirect);
     }
 }
