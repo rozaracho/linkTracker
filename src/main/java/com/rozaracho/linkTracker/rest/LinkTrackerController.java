@@ -1,8 +1,8 @@
 package com.rozaracho.linkTracker.rest;
 
-import com.rozaracho.linkTracker.model.entity.MaskedLink;
 import com.rozaracho.linkTracker.model.service.LinkTrackerService;
 import com.rozaracho.linkTracker.rest.dto.MaskedLinkDto;
+import com.rozaracho.linkTracker.rest.dto.RedirectDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +27,10 @@ public class LinkTrackerController {
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/redirects")
+    public ResponseEntity<RedirectDto> numberOfRedirects(@RequestParam String url) {
+        return new ResponseEntity<>(linkTrackerService.numberOfRedirects(url), HttpStatus.OK);
     }
 }

@@ -7,6 +7,7 @@ import com.rozaracho.linkTracker.model.entity.Redirect;
 import com.rozaracho.linkTracker.model.helper.MaskedLinkFactory;
 import com.rozaracho.linkTracker.model.helper.RedirectFactory;
 import com.rozaracho.linkTracker.rest.dto.MaskedLinkDto;
+import com.rozaracho.linkTracker.rest.dto.RedirectDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,11 @@ public class LinkTrackerServiceImpl implements LinkTrackerService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public RedirectDto numberOfRedirects(String url) {
+        MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
+        return redirectFactory.getRedirectDto(maskedLink.getRedirects().size());
     }
 }
