@@ -10,6 +10,7 @@ import com.rozaracho.linkTracker.rest.dto.MaskedLinkDto;
 import com.rozaracho.linkTracker.rest.dto.RedirectDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LinkTrackerServiceImpl implements LinkTrackerService {
@@ -25,11 +26,12 @@ public class LinkTrackerServiceImpl implements LinkTrackerService {
     @Autowired
     RedirectFactory redirectFactory;
 
+    @Transactional
     @Override
     public MaskedLinkDto save(String url) {
         return maskedLinkFactory.getMaskedLinkDto(maskedLinkDao.save(maskedLinkFactory.getMaskedLink(url)));
     }
-
+    @Transactional
     @Override
     public boolean redirect(String url) {
         MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
@@ -47,6 +49,7 @@ public class LinkTrackerServiceImpl implements LinkTrackerService {
         return redirectFactory.getRedirectDto(maskedLink.getRedirects().size());
     }
 
+    @Transactional
     @Override
     public boolean invalidLink(String url) {
         MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
