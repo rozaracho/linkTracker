@@ -18,6 +18,16 @@ public class MaskedLink {
     @OneToMany(mappedBy = "maskedLink", cascade = CascadeType.ALL)
     private List<Redirect> redirects= new ArrayList<>();
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+
     public Integer getId() {
         return id;
     }

@@ -17,13 +17,13 @@ public class LinkTrackerController {
     LinkTrackerService linkTrackerService;
 
     @PostMapping("/create")
-    public ResponseEntity<MaskedLinkDto> save(@RequestParam String url) {
-        return new ResponseEntity<>(linkTrackerService.save(url), HttpStatus.CREATED);
+    public ResponseEntity<MaskedLinkDto> createLink(@RequestParam String url, @RequestParam String password) {
+        return new ResponseEntity<>(linkTrackerService.createLink(url, password), HttpStatus.CREATED);
     }
 
     @PostMapping("/redirect")
-    public ResponseEntity redirect(@RequestParam String url) {
-        if (linkTrackerService.redirect(url)) {
+    public ResponseEntity redirectLink(@RequestParam String url,@RequestParam String password ) {
+        if (linkTrackerService.redirectLink(url, password)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

@@ -10,11 +10,12 @@ public class MaskedLinkFactory {
     private static final String LINK = "http://localhost:8080/l/aBsJu";
 
 
-    public MaskedLink getMaskedLink(String url) {
+    public MaskedLink getMaskedLink(String url, String password) {
         MaskedLink link = new MaskedLink();
         link.setTarget(url);
         link.setLink(LINK);
         link.setValid(true);
+        link.setPassword(password);
         return  link;
     }
 

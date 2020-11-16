@@ -7,8 +7,9 @@ import com.rozaracho.linkTracker.rest.dto.RedirectDto;
 
 public interface LinkTrackerService {
 
-    MaskedLinkDto save(String url);
-    boolean redirect(String url);
+    MaskedLinkDto createLink(String url, String password);
+
+    boolean redirectLink(String url, String password);
 
     RedirectDto numberOfRedirects(String url);
 

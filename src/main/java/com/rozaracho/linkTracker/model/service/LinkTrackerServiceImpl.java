@@ -28,14 +28,16 @@ public class LinkTrackerServiceImpl implements LinkTrackerService {
 
     @Transactional
     @Override
-    public MaskedLinkDto save(String url) {
-        return maskedLinkFactory.getMaskedLinkDto(maskedLinkDao.save(maskedLinkFactory.getMaskedLink(url)));
+    public MaskedLinkDto createLink(String url,  String password) {
+        return maskedLinkFactory.getMaskedLinkDto(maskedLinkDao.save(
+                maskedLinkFactory.getMaskedLink(url, password)));
     }
+
     @Transactional
     @Override
-    public boolean redirect(String url) {
+    public boolean redirectLink(String url, String password) {
         MaskedLink maskedLink = maskedLinkDao.findByLink(url).orElse(null);
-        if(maskedLink != null && maskedLink.getValid()){
+        if(maskedLink != null && maskedLink.getValid() && maskedLink.getPassword().equals(password)){
             Redirect redirect = redirectFactory.getRedirect(maskedLink);
             redirectDao.save(redirect);
             return true;
